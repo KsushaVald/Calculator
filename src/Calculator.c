@@ -5,7 +5,7 @@
 #include "lib.h"
 int main(){
  setlocale(LC_ALL, "Rus");
- int n=0, k=0, dp;
+ int n=0, k=0, dp, i;
  void *db;
  char **name;
  struct chislo (*function)(struct chislo a, struct chislo b);
@@ -15,6 +15,13 @@ int main(){
  while((dir=readdir(dp)!=NULL)){
      k++;
  }
+ closedir(dir);
+ name=malloc(k*sizeof(char*));
+ dp=malloc();
+ for(i=0;i<k;i++){
+    name[i]=malloc(sizeof(char)*20);
+ }
+
 /* while(n!=5){
   system("clear");
   printf("Выбирете операцию:\n");
