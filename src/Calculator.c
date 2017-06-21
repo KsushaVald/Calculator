@@ -1,42 +1,61 @@
 #include <stdio.h>
-#include <locale.h>
 #include <dlfcn.h>
 #include <dirent.h>
 #include "lib.h"
 int main(){
- setlocale(LC_ALL, "Rus");
- int n=0, k=0, dp, i;
- void *db;
- char **name;
- struct chislo (*function)(struct chislo a, struct chislo b);
- struct chislo x,y;
- struct dirent *dir;
- dp=opendir("../plagin");
- while((dir=readdir(dp)!=NULL)){
-     k++;
- }
- closedir(dir);
- name=malloc(k*sizeof(char*));
- dp=malloc();
- for(i=0;i<k;i++){
-    name[i]=malloc(sizeof(char)*20);
- }
 
-/* while(n!=5){
-  system("clear");
-  printf("Выбирете операцию:\n");
-  for(){
-  }
-  scanf("%d", &n);
-  if(n!=5){
-       printf("Введите реальную и мнимую части 1-го числа: ");
-       scanf("%d",&x.r);
-       scanf("%d",&x.m);
-       printf("Введите реальную и мнимую части 2-го числа: ");
-       scanf("%d",&y.r);
-       scanf("%d",&y.m);
-  }
-  if(n==1){
+    int n=0, k=0, dp, i, j=0;
+    void **db;
+    char **name; char prefix[3]="lib";
+    struct chislo (*function)(struct chislo a, struct chislo b);
+    struct chislo x,y;
+    struct dirent *dir;
+    dp=opendir("../plagin");
+
+    while((dir=readdir(dp)!=NULL)){
+        for(i=0; i<3; i++){
+            if(dir->name[i]!=prefix[i])
+                 break;
+        }
+        if(i==3)
+            k++;
+    }
+    closedir(dir);
+    name=malloc(k*sizeof(char*));
+    db=malloc(k*sizeof(void*));
+    for(i=0;i<k;i++){
+        name[i]=malloc(sizeof(char)*20);
+    }
+    dp=opendir("../plagin");
+    while((dir=readdir(dp)!=NULL)){
+        for(i=0; i<3; i++){
+            if(dir->name[i]!=prefix[i])
+                 break;
+        }
+        if(i==3){
+            dp[j]=dlopen(dir->name,RTLD_NOW);
+            name[j]=dlsym(db,"name");
+            j++;
+        }
+     }
+
+    while(n!=5){
+        system("clear");
+        printf("Select the operation:\n");
+        for(i=0; i<k; i++){
+             printf("%d) %s\n",i, name[i]);
+        }
+        printf("%d)exit\n",k);
+        scanf("%d", &n);
+        if(n!=5){
+             printf("Enter the real and imaginary parts of the 1st number:");
+             scanf("%d",&x.r);
+             scanf("%d",&x.m);
+             printf("Enter the real and imaginary parts of the 2nd number:");
+             scanf("%d",&y.r);
+             scanf("%d",&y.m);
+        }
+/*  if(n==1){
    struct chislo c;
     c=summa(a,b);
   if(c.m>0)
