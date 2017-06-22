@@ -1,39 +1,41 @@
 #include <stdio.h>
 #include <dlfcn.h>
 #include <dirent.h>
-#include "lib.h"
+#include <malloc.h>
+#include "../lib/lib.h"
 int main(){
 
-    int n=0, k=0, dp, i, j=0;
+    int n=0, k=0, i, j=0;
+    DIR *dp;
     void **db;
     char **name; char prefix[3]="lib";
     struct chislo (*function)(struct chislo a, struct chislo b);
-    struct chislo x,y;
+    struct chislo x,y,c;
     struct dirent *dir;
     dp=opendir("../plagin");
 
-    while((dir=readdir(dp)!=NULL)){
+    while((dir=readdir(dp))!=NULL){
         for(i=0; i<3; i++){
-            if(dir->name[i]!=prefix[i])
+            if(dir->d_name[i]!=prefix[i])
                  break;
         }
         if(i==3)
             k++;
     }
-    closedir(dir);
+    closedir(dp);
     name=malloc(k*sizeof(char*));
     db=malloc(k*sizeof(void*));
     for(i=0;i<k;i++){
-        name[i]=malloc(sizeof(char)*20);
+        name[i]=malloc(sizeof(char)*30);
     }
     dp=opendir("../plagin");
-    while((dir=readdir(dp)!=NULL)){
+    while((dir=readdir(dp))!=NULL){
         for(i=0; i<3; i++){
-            if(dir->name[i]!=prefix[i])
+            if(dir->d_name[i]!=prefix[i])
                  break;
         }
         if(i==3){
-            dp[j]=dlopen(dir->name,RTLD_NOW);
+            db[j]=dlopen(dir->d_name,RTLD_NOW);
             name[j]=dlsym(db,"name");
             j++;
         }
@@ -43,55 +45,29 @@ int main(){
         system("clear");
         printf("Select the operation:\n");
         for(i=0; i<k; i++){
-             printf("%d) %s\n",i, name[i]);
+             printf("%d) %s\n",i+1, name[i]);
         }
-        printf("%d)exit\n",k);
+        printf("%d)exit\n",k+1);
         scanf("%d", &n);
-        if(n!=5){
+        if(n!=k+1){
              printf("Enter the real and imaginary parts of the 1st number:");
-             scanf("%d",&x.r);
-             scanf("%d",&x.m);
+             scanf("%lf",&x.r);
+             scanf("%lf",&x.m);
              printf("Enter the real and imaginary parts of the 2nd number:");
-             scanf("%d",&y.r);
-             scanf("%d",&y.m);
+             scanf("%lf",&y.r);
+             scanf("%lf",&y.m);
         }
-/*  if(n==1){
-   struct chislo c;
-    c=summa(a,b);
-  if(c.m>0)
-    printf("%d+%di", c.r,c.m);
-  else
-    printf("%d%di", c.r,c.m);
-  }
-  if(n==2){
-   struct chislo c;
-   c=raznost(a,b);
-  if(c.m>0)
-    printf("%d+%di", c.r,c.m);
-  else
-    printf("%d%di", c.r,c.m);
-
-  }
-  if(n==3){
-   struct chislo c;
-   c=umnozhenie(a,b);
-  if(c.m>0)
-    printf("%d+%di", c.r,c.m);
-  else
-    printf("%d%di", c.r,c.m);
-  }
-  if(n==4){
-   struct chislo c;
-   struct chislo ch;
-   struct chislo zn;
-    c.r=b.r; c.m=-1*b.m;
-    ch=umnozhenie(a,c);
-    zn=umnozhenie(b,c);
-  if(ch.m>0)
-    printf("(%d+%di)/%d", ch.r,ch.m,zn.r);
-  else
-    printf("(%d%di)", ch.r,ch.m, zn.r);
-  }
- }*/
+        function=dlsym(db[n-1],name[n-1]);
+        c=(*function)(x,y);
+        if(c.m>0)
+             printf("%lf+%lfi", c.r,c.m);
+        else
+             printf("%lf%lfi", c.r,c.m);
+       printf("Will we continue?\n");
+       printf("1)Yes\n");
+       printf("%d)No\n",k+1);
+       scanf("%d",&n);
+    }
+    dlclose(db);
+    closedir(dp);
 }
-

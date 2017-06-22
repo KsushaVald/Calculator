@@ -1,4 +1,4 @@
-SOURCES = umnozhenie.c raznost.c summa.c
+SOURCES = umnozhenie.c raznost.c summa.c delenie.c
 OBJECTS = $(SOURCES:%.c=%.o)
 LIBS = $(addprefix lib, $(SOURCES:.c=.so))
 

@@ -3,8 +3,8 @@ struct chislo raznost( struct chislo, struct chislo);
 struct chislo umnozhenie( struct chislo, struct chislo);
 
 struct chislo{
- int r;
- int m;
+ double r;
+ double m;
 };
 
 

@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include "../lib/lib.h"
 
-struct chislo umnozhenie(struct chislo a, struct chislo b)
+char name[15]="multiplication\0";
+
+struct chislo multiplication(struct chislo a, struct chislo b)
 {
   struct chislo c;
   if( (a.r==b.r) && (a.m*(-1)==b.m) ){

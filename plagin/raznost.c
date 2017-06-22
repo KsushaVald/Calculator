@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include "../lib/lib.h"
-struct chislo raznost(struct chislo a, struct chislo b)
+
+char name[12]="subtraction\0";
+
+struct chislo subtraction(struct chislo a, struct chislo b)
 {
    struct chislo c;
    c.r=a.r-b.r;

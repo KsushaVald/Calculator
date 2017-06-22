@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include "../lib/lib.h"
 
-struct chislo summa( struct chislo a, struct chislo b)
+char name[4]="sum\0";
+
+struct chislo sum( struct chislo a, struct chislo b)
 {
   struct chislo c;
   c.r=a.r+b.r;
