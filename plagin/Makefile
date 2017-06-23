@@ -5,9 +5,9 @@ LIBS = $(addprefix lib, $(SOURCES:.c=.so))
 all: $(LIBS)
 
 lib%.so: %.o
-		gcc -shared $< -o $@
+		gcc -shared $< -o $@ -g
 
 %.o: %.c
-		gcc -fPIC -c $<
+		gcc -fPIC -c $< -g
  
 

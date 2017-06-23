@@ -3,8 +3,8 @@
 #include <dirent.h>
 #include <malloc.h>
 #include "../lib/lib.h"
-int main(){
 
+int main(){
     int n=0, k=0, i, j=0;
     DIR *dp;
     void **db;
@@ -12,8 +12,9 @@ int main(){
     struct chislo (*function)(struct chislo a, struct chislo b);
     struct chislo x,y,c;
     struct dirent *dir;
-    dp=opendir("../plagin");
 
+    dp=opendir("plagin");
+    printf("%d %s\n", (int) dp, get_current_dir_name());
     while((dir=readdir(dp))!=NULL){
         for(i=0; i<3; i++){
             if(dir->d_name[i]!=prefix[i])
@@ -28,7 +29,7 @@ int main(){
     for(i=0;i<k;i++){
         name[i]=malloc(sizeof(char)*30);
     }
-    dp=opendir("../plagin");
+    dp=opendir("plagin");
     while((dir=readdir(dp))!=NULL){
         for(i=0; i<3; i++){
             if(dir->d_name[i]!=prefix[i])

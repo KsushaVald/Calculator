@@ -1,2 +1,2 @@
 Calculator.o: Calculator.c
-		gcc -c $<
+		gcc -c $< -g
