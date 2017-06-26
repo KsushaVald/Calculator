@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "../lib/lib.h"
 
-char name[12]="subtraction\0";
+char f_name[12]="subtraction\0";
 
 struct chislo subtraction(struct chislo a, struct chislo b)
 {

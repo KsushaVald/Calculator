@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "../lib/lib.h"
 
-char name[9]="division\0";
+char f_name[9]="division\0";
 
 struct chislo division (struct chislo a, struct chislo b)
 {

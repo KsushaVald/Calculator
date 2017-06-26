@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "../lib/lib.h"
 
-char name[15]="multiplication\0";
+char f_name[15]="multiplication\0";
 
 struct chislo multiplication(struct chislo a, struct chislo b)
 {
